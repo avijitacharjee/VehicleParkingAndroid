@@ -13,8 +13,12 @@ public class MainDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.getRoot().setOnClickListener(v->{
+        binding.profile.setOnClickListener(v->{
+            startActivity(new Intent(getApplicationContext(),ActivityProfile.class));
+        });
+        binding.map.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(),MapsActivity.class));
         });
+
     }
 }
