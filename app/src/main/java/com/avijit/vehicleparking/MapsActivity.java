@@ -1,10 +1,16 @@
 package com.avijit.vehicleparking;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,11 +20,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    DrawerLayout drawer;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +35,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(item->{
+            int id = item.getItemId();
+/*
+            ft=getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.news_fragment_container,new AddNewsTypeFragment());
+            ft.commit();
+            closeDrawer();*/
+            return true;
+        });
+
+        EndDrawerToggle toggle = new EndDrawerToggle(
+                this,
+                drawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        toolbar.setNavigationOnClickListener(v->super.onBackPressed());
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem= menu.findItem(R.id.group_title_1);
+        SpannableString s = new SpannableString(menuItem.getTitle());
+        s.setSpan(new TextAppearanceSpan(this,R.style.TextAppearance44),0,s.length(),0);
+        menuItem.setTitle(s);
+
     }
 
     /**
@@ -43,14 +81,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        LatLng sydney = new LatLng(22.3721, 91.7930);
+        mMap.addMarker(new MarkerOptions().position(new LatLng(22.3591,91.8215)).title(""));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(22.3269,91.8162)).title(""));
+        mMap.addMarker(new MarkerOptions().position(sydney).title(""));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 try{
-                    Uri uri = Uri.parse("https://www.google.com/maps/dir/"+"-35,153/"+marker.getPosition().latitude+","+marker.getPosition().longitude);
+                    Uri uri = Uri.parse("https://www.google.com/maps/dir/"+"22.3731, 91.7990/"+marker.getPosition().latitude+","+marker.getPosition().longitude);
 
                     Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     intent.setPackage("com.google.android.apps.maps");

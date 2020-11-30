@@ -18,4 +18,7 @@
     <color name="secondaryTextColor">#C5CAE9</color>
     <color name="foreground">#2C2828</color>
     <color name="background">#C5CAE9</color>
+    <color name="startblue">#09c6df</color>
+    <color name="endblue">#0bc6ee</color>
+
 </resources>
