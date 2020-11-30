@@ -2,16 +2,32 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    >
-
-    <AutoCompleteTextView android:id="@+id/autoCompleteTextView1"
-        android:layout_below="@+id/tv1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_height="wrap_content"
-        android:ems="10"
-        xmlns:android="http://schemas.android.com/apk/res/android"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="10dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:hintTextColor="@color/white"
+        android:layout_marginBottom="10dp"
+        android:hint="Search Hare">
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:backgroundTint="@color/black"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv1"
+        android:ems="10" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"

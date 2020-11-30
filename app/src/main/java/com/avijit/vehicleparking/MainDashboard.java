@@ -20,16 +20,11 @@ public class MainDashboard extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MapsActivity.class));
         });
         binding.Booking.setOnClickListener(v->{
-            startActivity(new Intent(getApplicationContext(),BookingActivity.class));
         });
         binding.help.setOnClickListener(v->{
-            String phone = "+34666777888";
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-            startActivity(intent);
+
         });
-        binding.emergency.setOnClickListener(v->{
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        });
+        binding.emergency.setOnClickListener(v->startActivity(new Intent(getApplicationContext(),MainActivity.class)));
         binding.History.setOnClickListener(v->{
         });
 

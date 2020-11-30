@@ -87,6 +87,21 @@ public class MapsActivity extends FragmentActivity {
                     closeDrawer();
                     break;
                 }
+                case R.id.nav_pricing : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new PricingFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+                case R.id.nav_payment : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new PaymentMethodsFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+
                 case R.id.nav_logout : {
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }

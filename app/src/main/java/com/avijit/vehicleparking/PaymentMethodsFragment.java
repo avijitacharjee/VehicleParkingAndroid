@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.avijit.vehicleparking.databinding.FragmentPaymentMethodsBinding;
 
@@ -26,6 +27,14 @@ public class PaymentMethodsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        View.OnClickListener p = v->{
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.news_fragment_container,new PaymentFragment());
+        };
+        binding.a.setOnClickListener(p);
+        binding.b.setOnClickListener(p);
+        binding.c.setOnClickListener(p);
     }
 }

@@ -18,9 +18,21 @@
 Email : support@vparking.com"
         android:lineHeight="45dp"
         android:elevation="10dp"
-        android:outlineProvider="paddedBounds"
+        android:outlineProvider="bounds"
         android:padding="10dp"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:padding="15dp"
+        android:text="Make a Call"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:background="@color/secondaryColor"
+        android:elevation="10dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
