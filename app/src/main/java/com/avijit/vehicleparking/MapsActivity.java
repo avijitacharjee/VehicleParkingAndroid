@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -42,12 +43,37 @@ public class MapsActivity extends FragmentActivity {
         ft.add(R.id.news_fragment_container,homeFragment);
         ft.commit();
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primaryColor));
         toolbar.setTitle("Vehicle Parking");
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(item->{
             int id = item.getItemId();
+
+            switch (id) {
+                case R.id.nav_history : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new HistoryFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+                case R.id.nav_home : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new MapsFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+                case R.id.nav_profile : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new ProfileFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+            }
 /*
             ft=getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.news_fragment_container,new AddNewsTypeFragment());
@@ -113,4 +139,9 @@ public class MapsActivity extends FragmentActivity {
                 return true;
             }
         });*/
+    private void closeDrawer(){
+        if(drawer.isDrawerOpen(Gravity.RIGHT)){
+            drawer.closeDrawer(Gravity.RIGHT);
+        }
+    }
 }

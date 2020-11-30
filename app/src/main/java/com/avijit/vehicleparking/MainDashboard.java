@@ -15,7 +15,6 @@ public class MainDashboard extends AppCompatActivity {
         binding = ActivityMainDashboardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.profile.setOnClickListener(v->{
-            startActivity(new Intent(getApplicationContext(),ActivityProfile.class));
         });
         binding.map.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(),MapsActivity.class));
@@ -32,7 +31,6 @@ public class MainDashboard extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
         binding.History.setOnClickListener(v->{
-            startActivity(new Intent(getApplicationContext(),HistoryActivity.class));
         });
 
     }
