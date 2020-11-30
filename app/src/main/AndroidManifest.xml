@@ -17,7 +17,6 @@
         android:roundIcon="@mipmap/ic_launcher_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VehicleParking">
-        <activity android:name=".HelpActivity" />
         <activity android:name=".QrActivity" />
         <activity android:name=".BookingActivity" />
         <!--
