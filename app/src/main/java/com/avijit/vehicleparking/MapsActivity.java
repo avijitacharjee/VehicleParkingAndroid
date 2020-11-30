@@ -73,6 +73,13 @@ public class MapsActivity extends FragmentActivity {
                     closeDrawer();
                     break;
                 }
+                case R.id.nav_help : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new HelpFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
             }
 /*
             ft=getSupportFragmentManager().beginTransaction();

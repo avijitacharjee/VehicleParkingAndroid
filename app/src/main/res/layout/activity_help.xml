@@ -8,14 +8,17 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context=".HelpActivity">
+    android:background="@color/white"
+    android:layout_marginTop="?attr/actionBarSize">
 
     <TextView
         android:text="HELP/INFO PAGE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@color/white"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
         android:layout_marginTop="20dp"
         android:id="@+id/textView56"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
@@ -25,7 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView57"
+        android:background="@color/white"
         android:layout_marginTop="18dp"
+        android:textColor="@color/black"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/textView56"
         android:layout_alignParentStart="true" />
@@ -34,6 +39,8 @@
         android:text="2. Once you clock in, you will be given a Parking Spot Number, with options to see your parking spot on a map. "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/black"
         android:layout_below="@+id/textView57"
         android:layout_alignParentStart="true"
         android:layout_marginTop="26dp"
@@ -45,6 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
         android:id="@+id/textView63"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:layout_below="@+id/textView62"
