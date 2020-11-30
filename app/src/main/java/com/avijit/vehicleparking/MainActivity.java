@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG, "onResponse: "+response);
                         getSharedPreferences("s",MODE_PRIVATE).edit().putString("user",response).apply();
                         Toast.makeText(MainActivity.this, "Logged in successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(),MainDashboard.class));
+                        startActivity(new Intent(getApplicationContext(),MapsActivity.class));
 
                     }else {
                         Toast.makeText(MainActivity.this, "Invalid email/password", Toast.LENGTH_SHORT).show();

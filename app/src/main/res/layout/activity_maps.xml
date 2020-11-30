@@ -27,19 +27,11 @@
 
         </com.google.android.material.appbar.AppBarLayout>
         <!-- Content -->
-
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <FrameLayout
+            android:id="@+id/news_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            map:layout_constraintStart_toStartOf="parent"
-            map:layout_constraintEnd_toEndOf="parent"
-            map:layout_constraintBottom_toBottomOf="parent"
-            map:layout_constraintTop_toBottomOf="@+id/text"
-            tools:context=".MapsActivity" />
+            android:layout_height="match_parent"/>
+
 
         <!-- End of content -->
 
@@ -49,7 +41,9 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="#C0000000"
         android:layout_gravity="end"
+        app:itemTextColor="@color/white"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/navigation_header_main"
         app:menu="@menu/menu_main" />

@@ -3,6 +3,7 @@ package com.avijit.vehicleparking;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -22,20 +23,26 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.navigation.NavigationView;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap;
     DrawerLayout drawer;
     Toolbar toolbar;
+    FragmentTransaction ft;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+        MapsFragment homeFragment = new MapsFragment();
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.news_fragment_container,homeFragment);
+        ft.commit();
         toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Vehicle Parking");
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -59,11 +66,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         toolbar.setNavigationOnClickListener(v->super.onBackPressed());
-        Menu menu = navigationView.getMenu();
+        /*Menu menu = navigationView.getMenu();
         MenuItem menuItem= menu.findItem(R.id.group_title_1);
         SpannableString s = new SpannableString(menuItem.getTitle());
         s.setSpan(new TextAppearanceSpan(this,R.style.TextAppearance44),0,s.length(),0);
-        menuItem.setTitle(s);
+        menuItem.setTitle(s);*/
 
     }
 
@@ -76,7 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
+    /*@Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -105,6 +112,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 return true;
             }
-        });
-    }
+        });*/
 }
