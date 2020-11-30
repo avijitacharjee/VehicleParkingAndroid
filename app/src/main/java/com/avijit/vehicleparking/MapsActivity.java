@@ -80,6 +80,16 @@ public class MapsActivity extends FragmentActivity {
                     closeDrawer();
                     break;
                 }
+                case R.id.nav_contact : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new ContactFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
+                case R.id.nav_logout : {
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
             }
 /*
             ft=getSupportFragmentManager().beginTransaction();
