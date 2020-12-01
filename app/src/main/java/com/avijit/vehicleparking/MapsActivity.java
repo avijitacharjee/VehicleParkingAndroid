@@ -101,6 +101,13 @@ public class MapsActivity extends FragmentActivity {
                     closeDrawer();
                     break;
                 }
+                case R.id.nav_reserve : {
+                    ft=getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.news_fragment_container,new ReserveFragment());
+                    ft.commit();
+                    closeDrawer();
+                    break;
+                }
 
                 case R.id.nav_logout : {
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

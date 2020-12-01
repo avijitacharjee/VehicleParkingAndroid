@@ -2,6 +2,7 @@ package com.avijit.vehicleparking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,13 +47,26 @@ public class ReserveFragment extends Fragment {
         }catch (Exception e){
             Log.d(TAG, "onCreate: "+e.toString());
         }
+        CountDownTimer timer = new CountDownTimer(20*60*1000,1000) {
+            @Override
+            public void onTick(long l) {
+                binding.timer.setText(String.format("Remaining : %d:%ss",l/60000,(""+(l%60000)).substring(0,2)));
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
         binding.text.setOnClickListener(v->{
             if(booked) {
                 startActivity(new Intent(getContext(), QrActivity.class));
             }else {
                 booked=true;
-                binding.text.setText("You have booked for a slot. Click to see qr code.");
+                binding.text.setText("You have booked for a slot. Click to see QR code.");
+                timer.start();
             }
         });
+
     }
 }

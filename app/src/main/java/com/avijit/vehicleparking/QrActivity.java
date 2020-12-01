@@ -12,8 +12,8 @@ public class QrActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qr);
         binding = ActivityQrBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         Picasso.get().load("https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=Aviji").into(binding.imageView);
     }
 }

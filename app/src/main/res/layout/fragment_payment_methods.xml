@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
@@ -10,10 +11,11 @@
         android:layout_width="match_parent"
         android:elevation="10dp"
         android:layout_margin="20dp"
-        android:outlineProvider="paddedBounds"
+        android:outlineProvider="bounds"
         android:padding="10dp"
         android:text="BKash"
         android:gravity="center"
+        android:background="@color/white"
         android:textColor="@color/black"
         android:layout_height="wrap_content"/>
     <com.google.android.material.textview.MaterialTextView
@@ -25,6 +27,7 @@
         android:outlineProvider="bounds"
         android:text="Nogod"
         android:gravity="center"
+        android:background="@color/white"
         android:textColor="@color/black"
         android:layout_height="wrap_content"/>
     <com.google.android.material.textview.MaterialTextView
@@ -32,10 +35,11 @@
         android:layout_width="match_parent"
         android:elevation="10dp"
         android:layout_margin="20dp"
-        android:outlineProvider="paddedBounds"
+        android:outlineProvider="bounds"
         android:padding="10dp"
         android:text="UCash"
         android:gravity="center"
+        android:background="@color/white"
         android:textColor="@color/black"
         android:layout_height="wrap_content"/>
 </LinearLayout>

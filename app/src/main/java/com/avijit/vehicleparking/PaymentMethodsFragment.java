@@ -31,7 +31,7 @@ public class PaymentMethodsFragment extends Fragment {
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.news_fragment_container,new PaymentFragment());
+                    .replace(R.id.news_fragment_container,new PaymentFragment()).commit();
         };
         binding.a.setOnClickListener(p);
         binding.b.setOnClickListener(p);
