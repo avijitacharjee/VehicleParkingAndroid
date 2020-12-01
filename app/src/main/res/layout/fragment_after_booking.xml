@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:outlineProvider="bounds"
+        android:text=""
+        android:gravity="center"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/route"
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:layout_margin="20dp"
+        android:outlineProvider="bounds"
+        android:padding="10dp"
+        android:text="Get Best Route on Map"
+        android:gravity="center"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/qr"
+        android:layout_width="match_parent"
+        android:elevation="10dp"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:outlineProvider="bounds"
+        android:text="QR code"
+        android:gravity="center"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

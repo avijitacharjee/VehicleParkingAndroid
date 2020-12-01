@@ -8,7 +8,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:iconTint="@color/black"
+            android:iconTint="@color/white"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="Find Parking"/>
         <item
@@ -25,6 +25,11 @@
             android:iconTint="@color/black"
             android:icon="@drawable/ic_baseline_add_circle_24"
             android:title="Reserve"/>
+        <item
+            android:id="@+id/nav_bookings"
+            android:iconTint="@color/black"
+            android:icon="@drawable/ic_baseline_featured_play_list_24"
+            android:title="My bookings"/>
         <item
             android:id="@+id/nav_payment"
             android:iconTint="@color/black"

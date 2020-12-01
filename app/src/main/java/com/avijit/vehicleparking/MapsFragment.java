@@ -38,7 +38,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     AutoCompleteTextView autocomplete;
     String[] arr = { "New Market", "Muradpur","Chawkbazar",
             "GEC", "Agrabad","Chandgao"};
-    ArrayList<String>  strings = new ArrayList<String>();
+    ArrayList<String>  strings = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                try{
+                /*try{
                     Uri uri = Uri.parse("https://www.google.com/maps/dir/"+"22.3731, 91.7990/"+marker.getPosition().latitude+","+marker.getPosition().longitude);
 
                     Intent intent = new Intent(Intent.ACTION_VIEW,uri);
@@ -141,7 +141,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }
+                }*/
+                /*Intent intent = new Intent(getContext(),ReserveFragment.class);
+                intent.putExtra("location",marker.getPosition().latitude+","+marker.getPosition().longitude);
+                startActivity(intent);*/
+
+                Bundle bundle = new Bundle();
+                bundle.putString("location",marker.getPosition().latitude+","+marker.getPosition().longitude); // Put anything what you want
+
+                ReserveFragment fragment2 = new ReserveFragment();
+                fragment2.setArguments(bundle);
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.news_fragment_container, fragment2)
+                        .commit();
                 return true;
             }
         });
