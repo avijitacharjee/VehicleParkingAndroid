@@ -20,11 +20,11 @@
             android:icon="@drawable/ic_profile"
             android:title="My Bookings"/>-->
 
-        <item
+        <!--<item
             android:id="@+id/nav_reserve"
             android:iconTint="@color/black"
             android:icon="@drawable/ic_baseline_add_circle_24"
-            android:title="Reserve"/>
+            android:title="Reserve"/>-->
         <item
             android:id="@+id/nav_bookings"
             android:iconTint="@color/black"

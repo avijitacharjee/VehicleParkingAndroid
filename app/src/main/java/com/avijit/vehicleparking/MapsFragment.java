@@ -1,6 +1,8 @@
 package com.avijit.vehicleparking;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -148,7 +150,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("location",marker.getPosition().latitude+","+marker.getPosition().longitude); // Put anything what you want
-
+                getActivity().getSharedPreferences("s", Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("location",marker.getPosition().latitude+","+marker.getPosition().longitude)
+                        .apply();
                 ReserveFragment fragment2 = new ReserveFragment();
                 fragment2.setArguments(bundle);
 

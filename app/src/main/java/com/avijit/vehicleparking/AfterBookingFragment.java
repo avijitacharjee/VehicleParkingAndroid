@@ -1,5 +1,6 @@
 package com.avijit.vehicleparking;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -35,10 +36,26 @@ public class AfterBookingFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.info.setText("Location: "+getAddr(getArguments().getString("location"))+"\nDate: "+getDateTime(getArguments().getString("token")));
+        String location;
+        String token;
+        try {
+            location = getArguments().getString("location");
+            token = getArguments().getString("token");
+        }catch (Exception e){
+            location = getActivity().getSharedPreferences("s", Context.MODE_PRIVATE).getString("location","");
+            token = getActivity().getSharedPreferences("s",Context.MODE_PRIVATE).getString("token","abcd");
+        }
+        if(location.equals("")){
+            binding.info.setText("You have no bookings.");
+            binding.qr.setVisibility(View.GONE);
+            binding.route.setVisibility(View.GONE);
+            return;
+        }
+        binding.info.setText("Location: "+getAddr(location)+"\nDate: "+getDateTime(token));
+        String finalLocation = location;
         binding.route.setOnClickListener(v->{
             try{
-                Uri uri = Uri.parse("https://www.google.com/maps/dir/"+"22.3731, 91.7990/"+getArguments().getString("location"));
+                Uri uri = Uri.parse("https://www.google.com/maps/dir/"+"22.3731, 91.7990/"+ finalLocation);
 
                 Intent intent = new Intent(Intent.ACTION_VIEW,uri);
                 intent.setPackage("com.google.android.apps.maps");

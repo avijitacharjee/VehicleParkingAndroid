@@ -1,6 +1,7 @@
 package com.avijit.vehicleparking;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -85,6 +86,10 @@ public class ReserveFragment extends Fragment {
         if(A[5]=='0'){
                     binding.b1.setBackgroundColor(Color.RED);
                 }
+        if(A[0]+A[1]+A[2]+A[3]+A[4]+A[5]==6){
+            binding.text.setText("No slots are available..");
+            return;
+        }
         CountDownTimer timer = new CountDownTimer(20*60*1000,1000) {
             @Override
             public void onTick(long l) {
@@ -93,6 +98,10 @@ public class ReserveFragment extends Fragment {
             @Override
             public void onFinish() {
                 getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",false).apply();
+                getActivity().getSharedPreferences("s", Context.MODE_PRIVATE)
+                        .edit()
+                        .putString("location","")
+                        .apply();
             }
         };
         binding.text.setOnClickListener(v->{
@@ -155,5 +164,6 @@ public class ReserveFragment extends Fragment {
                 requestQueue.add(stringRequest);
             }
         });
+
     }
 }

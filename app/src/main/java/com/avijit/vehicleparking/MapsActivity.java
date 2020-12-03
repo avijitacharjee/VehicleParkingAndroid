@@ -101,16 +101,16 @@ public class MapsActivity extends FragmentActivity {
                     closeDrawer();
                     break;
                 }
-                case R.id.nav_reserve : {
+                /*case R.id.nav_reserve : {
                     ft=getSupportFragmentManager().beginTransaction();
                     ft.replace(R.id.news_fragment_container,new ReserveFragment());
                     ft.commit();
                     closeDrawer();
                     break;
-                }
+                }*/
                 case R.id.nav_bookings : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new BookingsFragment());
+                    ft.replace(R.id.news_fragment_container,new AfterBookingFragment());
                     ft.commit();
                     closeDrawer();
                     break;
