@@ -1,5 +1,6 @@
 package com.avijit.vehicleparking;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,5 +34,6 @@ public class ContactFragment extends Fragment {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
             startActivity(intent);
         });
+        ObjectAnimator.ofFloat(binding.ll, View.ALPHA,0,1).setDuration(500).start();
     }
 }

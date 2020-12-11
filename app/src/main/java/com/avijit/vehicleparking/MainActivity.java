@@ -1,9 +1,12 @@
 package com.avijit.vehicleparking;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -95,5 +99,32 @@ public class MainActivity extends AppCompatActivity {
         binding.signupIntentButton.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(),ActivitySignUp.class));
         });
+        ObjectAnimator.ofFloat(binding.mainLayout, View.TRANSLATION_Y,1500f,0).setDuration(1000).start();
+        ObjectAnimator.ofFloat(binding.welcomeText,View.ALPHA,0,1).setDuration(2000).start();
+        //ObjectAnimator.ofFloat(binding.ll,View.ALPHA,0,1).setDuration(2000).start();
+        ObjectAnimator.ofFloat(binding.text2,View.SCALE_X,0,1f).setDuration(1000).start();
+        ObjectAnimator.ofFloat(binding.text2,View.SCALE_Y,0,1f).setDuration(1000).start();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .create()
+                .show();
     }
 }

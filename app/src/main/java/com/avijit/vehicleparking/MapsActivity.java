@@ -1,11 +1,13 @@
 package com.avijit.vehicleparking;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -13,7 +15,10 @@ import android.text.style.TextAppearanceSpan;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,6 +52,16 @@ public class MapsActivity extends FragmentActivity {
         toolbar.setTitle("Vehicle Parking");
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.primaryDarkColor));
 
         navigationView.setNavigationItemSelectedListener(item->{
             int id = item.getItemId();
@@ -54,49 +69,49 @@ public class MapsActivity extends FragmentActivity {
             switch (id) {
                 case R.id.nav_history : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new HistoryFragment());
+                    ft.replace(R.id.news_fragment_container,new HistoryFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_home : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new MapsFragment());
+                    ft.replace(R.id.news_fragment_container,new MapsFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_profile : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new ProfileFragment());
+                    ft.replace(R.id.news_fragment_container,new ProfileFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_help : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new HelpFragment());
+                    ft.replace(R.id.news_fragment_container,new HelpFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_contact : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new ContactFragment());
+                    ft.replace(R.id.news_fragment_container,new ContactFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_pricing : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new PricingFragment());
+                    ft.replace(R.id.news_fragment_container,new PricingFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
                 }
                 case R.id.nav_payment : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new PaymentMethodsFragment());
+                    ft.replace(R.id.news_fragment_container,new PaymentFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
@@ -110,7 +125,7 @@ public class MapsActivity extends FragmentActivity {
                 }*/
                 case R.id.nav_bookings : {
                     ft=getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.news_fragment_container,new AfterBookingFragment());
+                    ft.replace(R.id.news_fragment_container,new AfterBookingFragment()).addToBackStack(null);
                     ft.commit();
                     closeDrawer();
                     break;
@@ -143,7 +158,9 @@ public class MapsActivity extends FragmentActivity {
         SpannableString s = new SpannableString(menuItem.getTitle());
         s.setSpan(new TextAppearanceSpan(this,R.style.TextAppearance44),0,s.length(),0);
         menuItem.setTitle(s);*/
-
+        if(getSharedPreferences("s",MODE_PRIVATE).getInt("balance",-1000)==-1000){
+            getSharedPreferences("s",MODE_PRIVATE).edit().putInt("balance",10000).apply();
+        }
     }
 
     /**

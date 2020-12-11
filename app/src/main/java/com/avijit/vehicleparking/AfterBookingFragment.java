@@ -1,5 +1,6 @@
 package com.avijit.vehicleparking;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
@@ -72,6 +73,7 @@ public class AfterBookingFragment extends Fragment {
         binding.qr.setOnClickListener(v->{
             startActivity(new Intent(getContext(),QrActivity.class));
         });
+        ObjectAnimator.ofFloat(binding.getRoot(),View.ALPHA,0,1).setDuration(500).start();
     }
     private String getDateTime(String l){
         return DateFormat.getDateTimeInstance().format(Double.parseDouble(l));

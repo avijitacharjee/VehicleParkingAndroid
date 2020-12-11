@@ -1,5 +1,6 @@
 package com.avijit.vehicleparking;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,5 +52,7 @@ public class ProfileFragment extends Fragment {
         binding.nameTextView.setText("Name: "+name);
         binding.email.setText("Email: "+email);
         binding.phone.setText("Phone: "+phone);
+        ObjectAnimator.ofFloat(binding.getRoot(),View.ALPHA,0,1).setDuration(500).start();
+
     }
 }

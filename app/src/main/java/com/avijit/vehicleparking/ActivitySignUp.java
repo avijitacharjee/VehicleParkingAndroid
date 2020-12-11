@@ -2,9 +2,11 @@ package com.avijit.vehicleparking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -71,5 +73,10 @@ public class ActivitySignUp extends AppCompatActivity {
         binding.signupIntentButton.setOnClickListener(v->{
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         });
+        ObjectAnimator.ofFloat(binding.mainLayout, View.TRANSLATION_Y,1500f,0).setDuration(1000).start();
+        ObjectAnimator.ofFloat(binding.welcomeText,View.ALPHA,0,1).setDuration(2000).start();
+        //ObjectAnimator.ofFloat(binding.ll,View.ALPHA,0,1).setDuration(2000).start();
+        ObjectAnimator.ofFloat(binding.text2,View.SCALE_X,0,1f).setDuration(1000).start();
+        ObjectAnimator.ofFloat(binding.text2,View.SCALE_Y,0,1f).setDuration(1000).start();
     }
 }

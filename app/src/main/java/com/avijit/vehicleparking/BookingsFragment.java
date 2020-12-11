@@ -1,5 +1,6 @@
 package com.avijit.vehicleparking;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,5 +33,7 @@ public class BookingsFragment extends Fragment {
         }else {
             binding.qr.setText("You have not booked for any parking");
         }
+        ObjectAnimator.ofFloat(binding.getRoot(),View.ALPHA,0,1).setDuration(500).start();
+
     }
 }

@@ -1,8 +1,11 @@
 package com.avijit.vehicleparking;
 
+import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -104,6 +108,7 @@ public class ReserveFragment extends Fragment {
                         .apply();
             }
         };
+        final int amount = ((int)(Math.random()*100)+10);
         binding.text.setOnClickListener(v->{
             if(booked) {
                 /*Intent intent = new Intent(getActivity(),QrActivity.class);
@@ -119,51 +124,63 @@ public class ReserveFragment extends Fragment {
                         .replace(R.id.news_fragment_container, fragment2)
                         .commit();
             }else {
-                booked=true;
-                progressDialog = new ProgressDialog(getContext());
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage("Loading");
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.setProgress(0);
-                RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
-                String url = "https://www.finalproject.xyz/vehicle_parking/api/bookings.php";
-                progressDialog.show();
-                token = System.currentTimeMillis();
-                getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putString("token",token+"").apply();
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        binding.text.setText("You have booked for a slot. Click to see QR code.");
-                        getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",true).apply();
-                        timer.start();
-                    }
-                },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                progressDialog.dismiss();
-                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",false).apply();
-                            }
-                        }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        return super.getHeaders();
-                    }
 
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-                        params.put("user_id",userId);
-                        params.put("time", getArguments().getString("location"));
-                        params.put("token", String.valueOf(token));
-                        return params;
-                    }
-                };
-                requestQueue.add(stringRequest);
+                new AlertDialog.Builder(getContext()).
+                        setMessage(amount+" Taka will be deducted from your account. Are you sure to proceed?").
+                        setPositiveButton("YES",(dialogInterface,i)->{
+                            booked=true;
+                            progressDialog = new ProgressDialog(getContext());
+                            progressDialog.setCancelable(false);
+                            progressDialog.setMessage("Loading");
+                            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                            progressDialog.setProgress(0);
+                            RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
+                            String url = "https://www.finalproject.xyz/vehicle_parking/api/bookings.php";
+                            progressDialog.show();
+                            token = System.currentTimeMillis();
+                            getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putString("token",token+"").apply();
+
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    progressDialog.dismiss();
+                                    binding.text.setText("You have booked for a slot. Click to see QR code.");
+                                    SharedPreferences sf = getActivity().getSharedPreferences("s",MODE_PRIVATE);
+                                    sf.edit().putBoolean("booked",true).apply();
+                                    sf.edit().putInt("balance",(sf.getInt("balance",0)- amount)).apply();
+                                    timer.start();
+                                }
+                            },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                            getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",false).apply();
+                                        }
+                                    }){
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    return super.getHeaders();
+                                }
+
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    Map<String,String> params = new HashMap<>();
+                                    params.put("user_id",userId);
+                                    params.put("time", getArguments().getString("location"));
+                                    params.put("token", String.valueOf(token));
+                                    return params;
+                                }
+                            };
+                            requestQueue.add(stringRequest);
+                        }).
+                        setNegativeButton("NO",null).
+                        create().show();
+                //requestQueue.add(stringRequest);
             }
         });
+        ObjectAnimator.ofFloat(binding.getRoot(),View.ALPHA,0,1).setDuration(500).start();
 
     }
 }
