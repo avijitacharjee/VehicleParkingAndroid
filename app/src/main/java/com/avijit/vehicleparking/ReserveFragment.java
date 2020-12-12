@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -30,7 +32,10 @@ import com.avijit.vehicleparking.databinding.ActivityBookingBinding;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
@@ -124,9 +129,16 @@ public class ReserveFragment extends Fragment {
                         .replace(R.id.news_fragment_container, fragment2)
                         .commit();
             }else {
+                SharedPreferences sf = getActivity().getSharedPreferences("s",MODE_PRIVATE);
+                String msg = "Your selected location: " + getAddr(getArguments().getString("location"));
+                msg += "\n\nYour current balance: "+sf.getInt("balance",0)+" Taka.\n\n";
+                msg += "Cost for this parking: "+amount +" Taka.\n\n";
+                msg += "Balance after payment: "+(sf.getInt("balance",0)-amount)+"\n\n";
+                msg += "Proceed to make payment?";
 
-                new AlertDialog.Builder(getContext()).
-                        setMessage(amount+" Taka will be deducted from your account. Are you sure to proceed?").
+                new AlertDialog
+                        .Builder(getContext()).
+                        setMessage(msg).
                         setPositiveButton("YES",(dialogInterface,i)->{
                             booked=true;
                             progressDialog = new ProgressDialog(getContext());
@@ -145,19 +157,15 @@ public class ReserveFragment extends Fragment {
                                 public void onResponse(String response) {
                                     progressDialog.dismiss();
                                     binding.text.setText("You have booked for a slot. Click to see QR code.");
-                                    SharedPreferences sf = getActivity().getSharedPreferences("s",MODE_PRIVATE);
                                     sf.edit().putBoolean("booked",true).apply();
                                     sf.edit().putInt("balance",(sf.getInt("balance",0)- amount)).apply();
                                     timer.start();
                                 }
                             },
-                                    new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-                                            getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",false).apply();
-                                        }
+                                    error -> {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                                        getActivity().getSharedPreferences("s",MODE_PRIVATE).edit().putBoolean("booked",false).apply();
                                     }){
                                 @Override
                                 public Map<String, String> getHeaders() throws AuthFailureError {
@@ -182,5 +190,32 @@ public class ReserveFragment extends Fragment {
         });
         ObjectAnimator.ofFloat(binding.getRoot(),View.ALPHA,0,1).setDuration(500).start();
 
+    }
+    private String getAddress(double latitude,double longitude){
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(getContext(), Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+        } catch (IOException e) {
+            e.printStackTrace();
+            addresses = null;
+        }
+
+        String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+        String city = addresses.get(0).getLocality();
+        String state = addresses.get(0).getAdminArea();
+        String country = addresses.get(0).getCountryName();
+        String postalCode = addresses.get(0).getPostalCode();
+        String knownName = addresses.get(0).getFeatureName();
+        return address;
+    }
+    private String getAddr(String s){
+        String[] p = s.split(",");
+        Double q[] = new Double[2];
+        q[0] = Double.parseDouble(p[0]);
+        q[1] = Double.parseDouble(p[1]);
+        return getAddress(q[0],q[1]);
     }
 }

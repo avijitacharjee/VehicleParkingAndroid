@@ -30,4 +30,5 @@
         <item name="android:textColorSecondary">@color/black</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
 </resources>
